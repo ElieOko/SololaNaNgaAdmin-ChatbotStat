@@ -1,0 +1,1 @@
+import o from"./ChatDashboardView-Cz7qSbm0.js";import{d as r,o as t,i as e}from"./index-D7HVst7D.js";import"./IpasLogo-B84tcAdy.js";import"./VCol-BxlLCrIj.js";import"./resizeObserver-D_SWZT8W.js";import"./VChip-CvDrExso.js";import"./VRow-BLWbKMC5.js";import"./VAlert-CwF_FkyN.js";const h=r({__name:"MainScreenView",setup(i){return(p,a)=>(t(),e(o))}});export{h as default};
