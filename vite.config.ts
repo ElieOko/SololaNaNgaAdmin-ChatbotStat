@@ -10,7 +10,7 @@ export default defineConfig({
     vuetify({
       autoImport: true,
       styles: { configFile: 'src/scss/variables.scss' }
-  })
+    })
   ],
   resolve: {
     alias: {
@@ -20,5 +20,13 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['vuetify'],
     entries: ['./src/**/*.vue']
-},
+  },
+  server: {
+    proxy: {
+      '/api/v1': {
+        target: 'https://strong.sololananga.org/',
+        changeOrigin: true
+      }
+    }
+  }
 })

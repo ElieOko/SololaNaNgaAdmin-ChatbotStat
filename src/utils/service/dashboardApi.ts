@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 
-const baseURL = 'https://strong.sololananga.org/api/v1';
+const baseURL = import.meta.env.VITE_DASHBOARD_API_URL || '/api/v1';
 
 export interface DashboardStatItem {
   label: string;

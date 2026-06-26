@@ -126,7 +126,7 @@ export const useDashboardStore = defineStore('dashboard', {
     handleError(err: unknown, fallback: string) {
       if (axios.isAxiosError(err)) {
         if (!err.response) {
-          this.error = 'Backend inaccessible. Lancez uvicorn sur le port 8000.';
+          this.error = 'Backend inaccessible. Vérifiez que le serveur API est démarré.';
         } else if (err.response.status === 401) {
           this.error = 'Session expirée. Reconnectez-vous.';
           this.logout();
@@ -145,13 +145,18 @@ export const useDashboardStore = defineStore('dashboard', {
     },
 
     async login(username: string, password: string) {
+      this.error = '';
       const response = await dashboardApi.login(username, password);
       setDashboardToken(response.data.access_token);
       setDashboardUser(response.data.user);
       this.token = response.data.access_token;
       this.user = response.data.user;
       this.resetCache();
-      await Promise.all([this.fetchDashboardData(true), this.fetchUsers(true)]);
+      try {
+        await Promise.all([this.fetchDashboardData(true), this.fetchUsers(true)]);
+      } catch {
+        // Auth succeeded; dashboard pages will retry loading data.
+      }
     },
 
     logout() {

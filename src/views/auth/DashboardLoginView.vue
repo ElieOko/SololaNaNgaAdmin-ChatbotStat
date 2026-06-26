@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import { Icon } from '@iconify/vue';
 import { useDashboardStore } from '@/stores/dashboard/dashboard';
 import IpasLogo from '@/components/shared/IpasLogo.vue';
@@ -28,8 +29,18 @@ const submit = async () => {
   try {
     await store.login(username.value.trim(), password.value);
     router.push('/dashboard/chat');
-  } catch {
-    error.value = 'Identifiants invalides ou serveur indisponible.';
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+      if (!err.response) {
+        error.value = 'Serveur inaccessible. Vérifiez que le backend est démarré.';
+      } else if (err.response.status === 401) {
+        error.value = 'Identifiants invalides.';
+      } else {
+        error.value = String(err.response.data?.detail ?? 'Connexion impossible.');
+      }
+    } else {
+      error.value = 'Identifiants invalides ou serveur indisponible.';
+    }
   } finally {
     loading.value = false;
   }
