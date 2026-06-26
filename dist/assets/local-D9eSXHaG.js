@@ -1,0 +1,1 @@
+import{Z as s}from"./index-CpmKIvMm.js";const o=s({id:"user_local",state:()=>({local:JSON.parse(localStorage.getItem("keys_user_local"))}),actions:{persistance(e){this.local=e,localStorage.setItem("keys_user_local",JSON.stringify(e))}}});export{o as u};

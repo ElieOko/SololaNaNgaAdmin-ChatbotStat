@@ -10,7 +10,6 @@ lerna-debug.log*
 node_modules
 backend/.venv
 .DS_Store
-dist
 dist-ssr
 coverage
 *.local
